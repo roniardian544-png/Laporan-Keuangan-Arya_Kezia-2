@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#dff2ff">
+  <title>Anggaran Keluarga | Kezia & Arya</title>
+  <style>
+    :root{
+      --blue:#69b9e8;--blue-dark:#267eae;--blue-soft:#eaf7ff;
+      --ink:#203344;--muted:#718394;--line:#e5edf3;--white:#fff;
+      --green:#16865b;--red:#d65353;--shadow:0 12px 34px rgba(50,111,151,.09);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#eaf7ff 0,#f7fbff 360px,#f6f9fc 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    .wrap{width:min(1060px,calc(100% - 32px));margin:0 auto;padding:34px 0 48px}
+    header{display:flex;align-items:center;gap:15px;margin-bottom:26px}
+    .logo{width:58px;height:58px;border-radius:18px;background:linear-gradient(145deg,#9bdcff,#55aee1);display:grid;place-items:center;color:#fff;font-size:22px;font-weight:800;box-shadow:0 8px 18px #70bce455}
+    .brand h1{font-size:clamp(20px,4vw,27px);margin:0 0 4px;letter-spacing:-.6px}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+    .tag{margin-left:auto;background:#fff;color:var(--blue-dark);border:1px solid #d9efff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700}
+    .intro{margin:0 0 20px}
+    .intro h2{font-size:22px;margin:0 0 6px}
+    .intro p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+    .panel{background:#fff;border:1px solid #eaf0f5;border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+    .top-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-bottom:16px}
+    .income-card{background:linear-gradient(135deg,#dff3ff,#f3faff);border:1px solid #d5edfc}
+    .eyebrow{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+    .money-input{display:flex;align-items:center;gap:9px;margin-top:12px}
+    .money-input span{font-size:20px;font-weight:800;color:var(--blue-dark)}
+    input[type=number]{width:100%;min-width:0;border:1px solid #dce8f0;border-radius:11px;padding:12px 13px;font:inherit;color:var(--ink);outline:none;background:#fff}
+    input[type=number]:focus{border-color:var(--blue);box-shadow:0 0 0 3px #69b9e822}
+    .income-card input{font-size:23px;font-weight:800;border-color:#c9e8fa}
+    .hint{font-size:12px;color:var(--muted);margin:9px 0 0}
+    .summary{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .metric{background:#f8fbfd;border:1px solid var(--line);border-radius:14px;padding:15px}
+    .metric span{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}
+    .metric strong{font-size:clamp(16px,2.6vw,21px);letter-spacing:-.5px}
+    .metric.remaining strong{color:var(--green)}
+    .metric.over strong{color:var(--red)}
+    .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:24px 0 13px}
+    .section-head h3{font-size:18px;margin:0 0 4px}
+    .section-head p{font-size:12px;color:var(--muted);margin:0}
+    .progress-wrap{height:9px;background:#edf3f7;border-radius:99px;overflow:hidden;margin:16px 0 7px}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,#8bd0f5,#399bd2);border-radius:99px;transition:width .2s}
+    .progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;min-width:610px}
+    th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.45px;padding:13px 10px;border-bottom:1px solid var(--line)}
+    td{padding:13px 10px;border-bottom:1px solid #f0f3f6;font-size:14px}
+    tbody tr:last-child td{border-bottom:0}
+    .category{display:flex;align-items:center;gap:10px;font-weight:650}
+    .emoji{width:34px;height:34px;border-radius:11px;background:var(--blue-soft);display:grid;place-items:center;font-size:17px}
+    .amount{font-weight:700;white-space:nowrap}
+    .percent{color:var(--muted);font-size:12px}
+    .category-input{max-width:160px;padding:9px 10px!important;font-size:13px!important}
+    .actual{font-size:12px;color:var(--muted);white-space:nowrap}
+    .footer-total{background:#f5faff}
+    .footer-total td{font-weight:800;border-top:1px solid #dcebf5}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}
+    button{border:0;border-radius:11px;padding:11px 15px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+    .primary{background:var(--blue-dark);color:white}
+    .secondary{background:#edf7fd;color:var(--blue-dark)}
+    .danger{background:#fff0f0;color:var(--red)}
+    button:hover{filter:brightness(.97)}
+    .note{margin-top:16px;padding:14px 16px;background:#f7fbfe;border:1px solid #e5f0f7;border-radius:13px;color:var(--muted);font-size:12px;line-height:1.65}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#203344;color:#fff;padding:11px 16px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+    .toast.show{opacity:1}
+    footer{text-align:center;color:#91a0ad;font-size:11px;margin-top:22px}
+    @media(max-width:720px){
+      .wrap{width:min(100% - 22px,600px);padding-top:22px}
+      header{gap:11px}.logo{width:49px;height:49px;border-radius:15px}.tag{display:none}
+      .top-grid{grid-template-columns:1fr}.panel{padding:17px;border-radius:17px}
+      .section-head{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">K&A</div>
+      <div class="brand">
+        <h1>Laporan Keuangan Bulanan</h1>
+        <p>Kezia &amp; Arya · Perencanaan keuangan keluarga</p>
+      </div>
+      <div class="tag">ANGGARAN KELUARGA</div>
+    </header>
+
+    <section class="intro">
+      <h2>Anggaran Belanja Bulanan</h2>
+      <p>Atur pendapatan, rencanakan kebutuhan keluarga, dan pantau alokasi uang setiap bulan.</p>
+    </section>
+
+    <section class="top-grid">
+      <div class="panel income-card">
+        <div class="eyebrow">Pendapatan bersih keluarga / bulan</div>
+        <div class="money-input"><span>Rp</span><input id="income" type="number" min="0" step="10000" value="5000000" aria-label="Pendapatan bersih keluarga per bulan"></div>
+        <p class="hint">Ubah nominal ini sesuai pendapatan bersih keluarga.</p>
+      </div>
+      <div class="panel summary">
+        <div class="metric"><span>Total anggaran</span><strong id="totalBudget">Rp0</strong></div>
+        <div class="metric remaining" id="remainingMetric"><span>Sisa belum dialokasikan</span><strong id="remaining">Rp0</strong></div>
+        <div class="metric"><span>Persentase dialokasikan</span><strong id="allocatedPercent">0%</strong></div>
+        <div class="metric"><span>Jumlah kategori</span><strong id="categoryCount">10</strong></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div><h3>Ringkasan alokasi</h3><p>Persentase berdasarkan pendapatan bulanan.</p></div>
+        <strong id="allocationLabel">100% dialokasikan</strong>
+      </div>
+      <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+      <div class="progress-label"><span>Anggaran terpakai untuk rencana</span><span id="progressText">Rp5.000.000</span></div>
+    </section>
+
+    <div class="section-head">
+      <div><h3>Rincian kebutuhan keluarga</h3><p>Nominal dapat diubah sesuai prioritas keluarga.</p></div>
+    </div>
+    <section class="panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kategori kebutuhan</th><th>Alokasi</th><th>Persentase</th><th>Catatan</th></tr></thead>
+          <tbody id="budgetRows"></tbody>
+          <tfoot><tr class="footer-total"><td>Total anggaran</td><td id="tableTotal">Rp5.000.000</td><td id="tablePercent">100%</td><td></td></tr></tfoot>
+        </table>
+      </div>
+      <div class="actions">
+        <button class="primary" id="saveBtn">Simpan anggaran</button>
+        <button class="secondary" id="resetBtn">Kembalikan ke anggaran awal</button>
+        <button class="secondary" id="printBtn">Cetak / Simpan PDF</button>
+      </div>
+      <div class="note">
+        <strong>Catatan:</strong> Anggaran ini adalah rancangan awal dengan pendapatan Rp5.000.000. Total alokasi awal 100%. Jika pendapatan atau nominal kategori diubah, total dan sisa uang akan dihitung otomatis. Data tersimpan di browser yang digunakan dan tidak otomatis tersinkron ke perangkat lain.
+      </div>
+    </section>
+    <footer>© 2026 Kezia &amp; Arya · Anggaran keluarga</footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const initialIncome = 5000000;
+    const initialItems = [
+      {name:"Makan & Minum",emoji:"🍚",percent:20,amount:1000000,note:"Kebutuhan makan harian"},
+      {name:"Belanja Kebutuhan Rumah",emoji:"🛒",percent:15,amount:750000,note:"Sabun, perlengkapan, dan kebutuhan rumah"},
+      {name:"Tempat Tinggal",emoji:"🏠",percent:25,amount:1250000,note:"Sewa, cicilan, atau biaya rumah"},
+      {name:"Tagihan & Utilitas",emoji:"💡",percent:10,amount:500000,note:"Listrik, air, dan internet"},
+      {name:"Transportasi",emoji:"🚌",percent:10,amount:500000,note:"Bensin dan ongkos perjalanan"},
+      {name:"Pendidikan",emoji:"📚",percent:8,amount:400000,note:"Sekolah, buku, dan belajar"},
+      {name:"Kesehatan",emoji:"🩺",percent:5,amount:250000,note:"Obat dan kebutuhan kesehatan"},
+      {name:"Tabungan Keluarga",emoji:"🐷",percent:5,amount:250000,note:"Simpanan dan dana darurat"},
+      {name:"Hiburan",emoji:"🎬",percent:1,amount:50000,note:"Rekreasi keluarga"},
+      {name:"Sosial & Berbagi",emoji:"🤝",percent:1,amount:50000,note:"Hadiah dan bantuan sosial"}
+    ];
+    let items = structuredClone(initialItems);
+    const rupiah = n => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(n)||0);
+    const el = id => document.getElementById(id);
+
+    function renderRows(){
+      el("budgetRows").innerHTML = items.map((item,i)=>`
+        <tr>
+          <td><div class="category"><span class="emoji">${item.emoji}</span><span>${item.name}</span></div></td>
+          <td><input class="category-input" type="number" min="0" step="10000" data-index="${i}" value="${item.amount}" aria-label="Anggaran ${item.name}"></td>
+          <td class="percent" id="percent-${i}">${item.percent}%</td>
+          <td class="actual">${item.note}</td>
+        </tr>`).join("");
+      document.querySelectorAll(".category-input").forEach(input=>{
+        input.addEventListener("input",e=>{
+          const i=Number(e.target.dataset.index);
+          items[i].amount=Math.max(0,Number(e.target.value)||0);
+          updateSummary();
+        });
+      });
+      updateSummary();
+    }
+    function updateSummary(){
+      const income=Math.max(0,Number(el("income").value)||0);
+      const total=items.reduce((s,x)=>s+x.amount,0);
+      const remaining=income-total;
+      const percent=income?total/income*100:0;
+      el("totalBudget").textContent=rupiah(total);
+      el("remaining").textContent=rupiah(remaining);
+      el("remainingMetric").classList.toggle("over",remaining<0);
+      el("remainingMetric").classList.toggle("remaining",remaining>=0);
+      el("allocatedPercent").textContent=percent.toFixed(1).replace(".0","")+"%";
+      el("categoryCount").textContent=items.length;
+      el("allocationLabel").textContent=percent.toFixed(1).replace(".0","")+"% dialokasikan";
+      el("progress").style.width=Math.min(100,percent)+"%";
+      el("progress").style.background=percent>100?"#d65353":"linear-gradient(90deg,#8bd0f5,#399bd2)";
+      el("progressText").textContent=rupiah(total);
+      el("tableTotal").textContent=rupiah(total);
+      el("tablePercent").textContent=percent.toFixed(1).replace(".0","")+"%";
+      items.forEach((item,i)=>{
+        const p=income?item.amount/income*100:0;
+        const cell=el("percent-"+i);
+        if(cell)cell.textContent=p.toFixed(1).replace(".0","")+"%";
+      });
+    }
+    function showToast(message){
+      const t=el("toast");t.textContent=message;t.classList.add("show");
+      setTimeout(()=>t.classList.remove("show"),2200);
+    }
+    function save(){
+      const data={income:Number(el("income").value)||0,items};
+      localStorage.setItem("keziaAryaFamilyBudget",JSON.stringify(data));
+      showToast("Anggaran berhasil disimpan di browser ini.");
+    }
+    function load(){
+      try{
+        const raw=localStorage.getItem("keziaAryaFamilyBudget");
+        if(raw){
+          const data=JSON.parse(raw);
+          if(Array.isArray(data.items)&&data.items.length===10){
+            items=data.items;
+            el("income").value=Number(data.income)||initialIncome;
+          }
+        }
+      }catch(e){console.warn("Data tersimpan tidak dapat dibaca.",e);}
+      renderRows();
+    }
+    el("income").addEventListener("input",updateSummary);
+    el("saveBtn").addEventListener("click",save);
+    el("resetBtn").addEventListener("click",()=>{
+      if(!confirm("Kembalikan semua nominal ke anggaran awal Rp5.000.000?"))return;
+      items=structuredClone(initialItems);el("income").value=initialIncome;renderRows();
+      localStorage.removeItem("keziaAryaFamilyBudget");showToast("Anggaran awal dipulihkan.");
+    });
+    el("printBtn").addEventListener("click",()=>window.print());
+    load();
+  </script>
+</body>
+</html>
