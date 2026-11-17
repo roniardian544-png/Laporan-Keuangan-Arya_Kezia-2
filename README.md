@@ -42,7 +42,6 @@ belanja-keluarga/
 - Nama di aplikasi: `tema.js` → `nama: "Keluarga Pratama"`; mode: `"terang"`, `"gelap"`, atau `"auto"`.
 - Warna: `tema.css` → `--tema-utama` (tombol, kartu sisa uang), `--tema-aksen` (tombol Catat, sorotan), `--tema-radius`, `--tema-font`, plus `--tema-latar/panel/nav/teks`. Semua warna lain diturunkan otomatis. Teks di atas warna utama & nav dihitung otomatis putih/gelap, tapi pilih warna utama yang cukup gelap agar tombol mudah dibaca.
 - Warna status amplop (hijau/kuning/merah) sengaja tetap supaya artinya selalu jelas; ubah di `style.css` (`--aman`, `--waspada`, `--lewat`).
-- Atau pakai customizer di [malikisaputra.biz.id/kode](https://malikisaputra.biz.id/kode).
 
 ## Ganti logo & foto
 - Logo (sidebar): timpa `img/logo.svg` dengan logo kamu (persegi, mis. 200×200), atau ubah path di `KONFIG.logo` paling atas `app.js` (boleh `.png`/`.jpg`). Bila gambar gagal dimuat, tampil inisial nama.
@@ -52,7 +51,7 @@ belanja-keluarga/
 Paket ini membawa Agent Skill di `.claude/skills/ubah-belanja-keluarga/SKILL.md` (peta berkas, letak tema, cara menambah fitur, aturan aman), `AGENTS.md` untuk Cursor/Copilot/Codex, dan `DESIGN.md`.
 
 - **Claude Code / Claude Desktop**: buka folder paket ini; skill di `.claude/skills` terbaca otomatis. Tinggal minta, misal "tambah amplop Zakat & sedekah dengan batas 300 ribu".
-- **claude.ai**: unduh ZIP skill (tombol **Unduh Skill** di [malikisaputra.biz.id/kode](https://malikisaputra.biz.id/kode)), lalu di claude.ai buka **Customize › Skills › tombol "+" › Create skill › Upload a skill** dan pilih ZIP itu (folder skill sebagai akar ZIP). Syarat: **Code execution and file creation** aktif di **Settings › Capabilities** (paket Free/Pro/Max); di Team/Enterprise diatur oleh Owner. Sumber: support.claude.com/en/articles/12512180 (dicek 6 Nov 2026).
+- **claude.ai**: unduh ZIP skill (lalu di claude.ai buka **Customize › Skills › tombol "+" › Create skill › Upload a skill** dan pilih ZIP itu (folder skill sebagai akar ZIP). Syarat: **Code execution and file creation** aktif di **Settings › Capabilities** (paket Free/Pro/Max); di Team/Enterprise diatur oleh Owner. Sumber: support.claude.com/en/articles/12512180 (dicek 6 Nov 2026).
 
 ## Mau hasil lebih maksimal?
 Pasang skill desain ini di Claude Code sebelum minta perubahan tampilan besar:
@@ -64,16 +63,14 @@ Pasang skill desain ini di Claude Code sebelum minta perubahan tampilan besar:
 - Data tidak sinkron otomatis antar-HP; pindahkan lewat Backup JSON › Pulihkan.
 
 ## Lisensi
-Lisensi Nonkomersial Maliki Studio (lihat `LICENSE`): gratis dipakai untuk usaha/organisasi sendiri dan boleh diubah, **wajib mencantumkan kreator** (Template oleh Maliki Saputra, @malikisaputra), dan **tidak boleh diperjualbelikan** tanpa izin. Mau menjual atau kerja sama? Diskusikan dulu dengan kreatornya.
+Lisensi Nonkomersial Maliki Studio (lihat `LICENSE`): gratis dipakai untuk usaha/organisasi sendiri dan boleh diubah, **wajib mencantumkan kreator**, dan **tidak boleh diperjualbelikan** tanpa izin. Mau menjual atau kerja sama? Diskusikan dulu dengan kreatornya.
 
 ---
-Dibuat oleh **Maliki Studio** — [malikisaputra.biz.id](https://malikisaputra.biz.id), follow TikTok/IG **@malikisaputra**
-
+Dibuat oleh
 ---
 
 <!-- kredit-maliki -->
-**Kredit:** Template oleh Maliki Saputra (@malikisaputra) — https://malikisaputra.biz.id. Kredit di footer & kepala berkas wajib dipertahankan (lihat LICENSE).
-
+**Kredit:** Template 
 <!-- panduan-ai-maliki -->
 ## Ubah sendiri sesuai kebutuhanmu pakai AI
 
@@ -115,4 +112,4 @@ Kamu tidak perlu jago coding. Template ini sudah disiapkan supaya mudah diubah A
 - Data aplikasi tersimpan di browser (localStorage). Backup dulu sebelum ganti versi.
 - Jangan hapus kredit "Template oleh @malikisaputra", dan template ini **tidak boleh diperjualbelikan** tanpa izin. Mau menjual atau kerja sama? Diskusikan dulu dengan kreatornya (@malikisaputra).
 
-Masih bingung? Komen di TikTok/IG **@malikisaputra**, nanti aku bantu.
+Masih bingung? Komen di TikTok/IG,nanti aku bantu.
